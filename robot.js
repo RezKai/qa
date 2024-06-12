@@ -9,7 +9,7 @@ robot.VCELLS = 12;
 robot.CELL_SIZE = 50;
 robot.WALL_SIZE = 6;
 robot.cells = {};
-robot.walls = {};
+robot.walls = {i};
 robot.startPos = {'x': 0, 'y': 0};
 
 class Cell {
