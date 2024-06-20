@@ -9,7 +9,7 @@ robot.VCELLS = 12;
 robot.CELL_SIZE = 50;
 robot.WALL_SIZE = 6;
 robot.cells = {};
-robot.walls = {i};
+robot.walls = {};
 robot.startPos = {'x': 0, 'y': 0};
 
 class Cell {
@@ -44,11 +44,46 @@ robot.create = function (container) {
     //robot.HCELLS=b
     //robot.VCELLS=a
 
+    let data = {
+        "rightWalls": [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ],
+        "bottomWalls": [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ]
+    }
+
     for (let i = 0; i <= robot.VCELLS; i++) {
         for (let j = 0; j <= robot.HCELLS; j++) {
             robot.cells[i + '_' + j] = new Cell(j, i);
             robot.walls['v' + i + '_' + j] = new Wall(j, i, true);
+            robot.walls['v' + i + '_' + j].isActive = data.rightWalls[i][j]
             robot.walls['h' + i + '_' + j] = new Wall(j, i, false);
+            robot.walls['h' + i + '_' + j].isActive = data.bottomWalls[i][j]
         }
     }
     robot.canvas.width = (robot.CELL_SIZE + robot.WALL_SIZE) * robot.HCELLS + robot.WALL_SIZE;
@@ -230,8 +265,8 @@ robot.parseCommand = function (commands) {
     robot.y = robot.startPos.y;
     robot.moveRobot(0,0);
     let jsCommand = '';
-    if (/\sиспользовать\s+Очир\s/.test(commands)) {
-        commands = commands.replace(/\sиспользовать\s+Очир\s/g, '');
+    if (/\sиспользовать\s+Робот\s/.test(commands)) {
+        commands = commands.replace(/\sиспользовать\s+Робот\s/g, '');
         commands.split('\n').forEach(function (command) {
             //парсинг команд движения и закрашивания
             command = command.replace(/\sвправо\s/g, ' robot.right(); ');

@@ -10,7 +10,7 @@ kumir.start = function(commands) {
 	commands = ' ' + commands.replace(/\n/g,' \n ') + ' '; //волшебный костыль №1
 	commands = commands.replace(/\(/g,' ( ').replace(/\)/g,' ) '); //волшебный костыль №2 (добавление пробелов перед и после скобок)
 	
-	//Проверка на наличие и парсинг команд для исполнителя Очир
+	//Проверка на наличие и парсинг команд для исполнителя Робот
 	if (robot) commands = robot.parseCommand(commands);
 
 	commands = kumir.parseCommand(commands); //трансляция в JavaScript
